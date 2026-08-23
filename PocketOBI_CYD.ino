@@ -250,7 +250,7 @@ unsigned long backStart = 0;
 // Set to 1 to trace OneWire battery transactions over serial (diagnostic).
 // IMPORTANT: keep this 0 when using PC bridge mode — the debug prints share the
 // USB serial port and would corrupt the binary protocol the PC app expects.
-#define COMM_DEBUG 1
+#define COMM_DEBUG 0
 
 // ---------- Battery data ----------
 struct BatteryData {
@@ -1489,7 +1489,13 @@ void serviceBridge() {
 
 // ---------- Setup / loop ----------
 void setup() {
-  Serial.begin(115200);
+  // 9600, not 115200: the "Open Battery Information" PC app's bridge
+  // protocol uses 9600 baud. On the original ESP32-C3 (native USB CDC) the
+  // baud value was cosmetic and ignored; the CYD has a real UART-to-USB
+  // chip (CH340/CP2102), so it must match exactly or bytes come through
+  // garbled. If you re-enable COMM_DEBUG for troubleshooting, set your
+  // Serial Monitor to 9600 too.
+  Serial.begin(9600);
 
   pinMode(ENABLE_PIN, OUTPUT);
   digitalWrite(ENABLE_PIN, LOW);
