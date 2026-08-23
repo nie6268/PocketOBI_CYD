@@ -15,7 +15,7 @@
    sketch-side "define before include" trick does NOT reach TFT_eSPI's own
    separately-compiled .cpp file in plain Arduino IDE builds.
 4. Restart the Arduino IDE (so it picks up the changed library file).
-5. Open `sketch/PocketOBI_CYD.ino` and upload.
+5. Open `PocketOBI_CYD.ino` and upload.
 
 ## Wiring
 
